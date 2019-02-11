@@ -19,4 +19,6 @@ public class DetailDTO {
 
     private String dollar;
 
+    private Long caclUseTime;
+
 }
