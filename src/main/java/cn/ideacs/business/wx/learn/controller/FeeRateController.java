@@ -32,7 +32,7 @@ public class FeeRateController {
                 .setRenMinBi(detailQuery.getRenMinBi())
                 .setDollar(new BigDecimal(detailQuery.getRenMinBi()).multiply(rates.get(detailQuery.getBiNo())).toString());
         Long useTime = System.currentTimeMillis() - start;
-        detailDTO.setCaclUseTime(useTime)
+        detailDTO.setCaclUseTime(useTime);
         log.info("结果：{}.\n一共用时：{}", detailDTO, useTime);
         return detailDTO;
     }
