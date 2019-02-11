@@ -25,12 +25,13 @@ public class FeeRateController {
 
     @RequestMapping(value = "/tryCacl", method = RequestMethod.POST)
     public DetailDTO tryCacl(@RequestBody DetailQuery detailQuery) {
+        Long start = System.currentTimeMillis();
         log.info("请求：{}", detailQuery);
         DetailDTO detailDTO = new DetailDTO()
                 .setCaclTime(LocalDateTime.now())
                 .setRenMinBi(detailQuery.getRenMinBi())
                 .setDollar(new BigDecimal(detailQuery.getRenMinBi()).multiply(rates.get(detailQuery.getBiNo())).toString());
-        log.info("结果：{}", detailDTO);
+        log.info("结果：{}.\n一共用时：{}", detailDTO, System.currentTimeMillis() - start);
         return detailDTO;
     }
 
