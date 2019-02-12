@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/fee/rate")
@@ -19,8 +20,10 @@ import java.util.Map;
 public class FeeRateController {
 
     private static final Map<Integer, BigDecimal> rates = new HashMap<>();
+    private static Random random;
     static {
         rates.put(1, new BigDecimal("6.67"));
+        random = new Random();
     }
 
     @RequestMapping(value = "/tryCacl", method = RequestMethod.POST)
@@ -33,6 +36,7 @@ public class FeeRateController {
                 .setDollar(new BigDecimal(detailQuery.getRenMinBi()).multiply(rates.get(detailQuery.getBiNo())).toString());
         Long useTime = System.currentTimeMillis() - start;
         detailDTO.setCaclUseTime(useTime);
+        detailDTO.setNext(random.nextInt(1000000));
         log.info("结果：{}.\n一共用时：{}", detailDTO, useTime);
         return detailDTO;
     }

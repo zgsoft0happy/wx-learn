@@ -21,4 +21,6 @@ public class DetailDTO {
 
     private Long caclUseTime;
 
+    private Integer next;
+
 }
