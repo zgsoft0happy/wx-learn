@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ideacs.business.wx.learn.dao.AccessLogMapper">
+
+    <sql id="baseColumnList">
+        id,
+        wx_account AS wxAccount,
+        access_time AS accessTime
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="cn.ideacs.business.wx.learn.entity.AccessLog">
+        INSERT INTO access_log(wx_account,access_time) VALUES (
+        #{wxAccount},#{accessTime})
+    </insert>
+
+    <select id="getByWxAccount" resultType="cn.ideacs.business.wx.learn.entity.AccessLog">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM access_log
+        where wx_account = #{wxAccount}
+    </select>
+
+</mapper>
