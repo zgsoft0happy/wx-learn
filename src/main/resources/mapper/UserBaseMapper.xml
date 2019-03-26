@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ideacs.business.wx.learn.dao.UserBaseMapper">
+    <sql id="baseColumnList">
+        id,
+        info_no AS infoNo,
+        wx_account AS wxAccount,
+        real_name AS realName,
+        nick_name AS nickName,
+        age,
+        edu,
+        hobit,
+        qq,
+        weixin,
+        email,
+        create_time AS createTime,
+        update_time AS updateTime,
+        remark
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="cn.ideacs.business.wx.learn.entity.dos.UserBase">
+        insert into user_base
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="infoNo != null">info_no,</if>
+            <if test="wxAccount != null">wx_account,</if>
+            <if test="realName != null">real_name,</if>
+            <if test="nickName != null">nick_name,</if>
+            <if test="age != null">age,</if>
+            <if test="edu != null">edu,</if>
+            <if test="hobit != null">hobit,</if>
+            <if test="qq != null">qq,</if>
+            <if test="weixin != null">weixin,</if>
+            <if test="email != null">email,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="infoNo != null">#{infoNo},</if>
+            <if test="wxAccount != null">#{wxAccount},</if>
+            <if test="realName != null">#{realName},</if>
+            <if test="nickName != null">#{nickName},</if>
+            <if test="age != null">#{age},</if>
+            <if test="edu != null">#{edu},</if>
+            <if test="hobit != null">#{hobit},</if>
+            <if test="qq != null">#{qq},</if>
+            <if test="weixin != null">#{weixin},</if>
+            <if test="email != null">#{email},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <select id="getByInfoNo" resultType="cn.ideacs.business.wx.learn.entity.dos.UserBase">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM user_base
+        WHERE info_no = #{info_no}
+    </select>
+
+
+</mapper>

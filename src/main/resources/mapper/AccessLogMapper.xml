@@ -9,12 +9,12 @@
         access_time AS accessTime
     </sql>
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="cn.ideacs.business.wx.learn.entity.AccessLog">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="cn.ideacs.business.wx.learn.entity.dos.AccessLog">
         INSERT INTO access_log(wx_account,access_time) VALUES (
         #{wxAccount},#{accessTime})
     </insert>
 
-    <select id="getByWxAccount" resultType="cn.ideacs.business.wx.learn.entity.AccessLog">
+    <select id="getByWxAccount" resultType="cn.ideacs.business.wx.learn.entity.dos.AccessLog">
         SELECT
         <include refid="baseColumnList"/>
         FROM access_log

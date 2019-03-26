@@ -1,7 +1,7 @@
 package cn.ideacs.business.wx.learn.service.impl;
 
 import cn.ideacs.business.wx.learn.dao.AccessLogMapper;
-import cn.ideacs.business.wx.learn.entity.AccessLog;
+import cn.ideacs.business.wx.learn.entity.dos.AccessLog;
 import cn.ideacs.business.wx.learn.service.AccessLogService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package cn.ideacs.business.wx.learn.controller;
 
-import cn.ideacs.business.wx.learn.entity.AccessLog;
+import cn.ideacs.business.wx.learn.entity.dos.AccessLog;
 import cn.ideacs.business.wx.learn.service.AccessLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

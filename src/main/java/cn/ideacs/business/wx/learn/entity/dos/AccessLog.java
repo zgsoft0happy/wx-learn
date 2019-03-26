@@ -1,4 +1,4 @@
-package cn.ideacs.business.wx.learn.entity;
+package cn.ideacs.business.wx.learn.entity.dos;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
