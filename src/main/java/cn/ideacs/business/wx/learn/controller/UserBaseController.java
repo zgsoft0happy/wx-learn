@@ -3,13 +3,26 @@ package cn.ideacs.business.wx.learn.controller;
 import cn.ideacs.business.wx.learn.converts.UserBaseConvert;
 import cn.ideacs.business.wx.learn.entity.bos.UserBaseBO;
 import cn.ideacs.business.wx.learn.entity.dtos.UserBaseDTO;
+import cn.ideacs.business.wx.learn.entity.dtos.UserOpenIdInfo;
+import cn.ideacs.business.wx.learn.entity.dtos.UserOpenIdReqDTO;
 import cn.ideacs.business.wx.learn.service.UserBaseService;
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/user/base")
+@Slf4j
 public class UserBaseController {
+
+    private final String url =
+            "https://api.weixin.qq.com/sns/jscode2session?appid=wx906e30f0d2dccb9a"
+                    + "&secret=edc85aac1266d298fde2acbaf58d64a1&grant_type=authorization_code"
+                    + "&js_code=";
+
 
     @Autowired
     private UserBaseService userBaseService;
@@ -25,6 +38,19 @@ public class UserBaseController {
         UserBaseBO userBaseBO = userBaseService.getByInfoNo(infoNo);
         UserBaseDTO userBaseDTO = UserBaseConvert.convertBOToDTO(userBaseBO);
         return userBaseDTO;
+    }
+
+    @RequestMapping(value = "/get/openid", method = RequestMethod.POST)
+    public UserOpenIdInfo getOpenId(@RequestBody UserOpenIdReqDTO userOpenIdReqDTO) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.parseMediaType("application/json; charset=UTF-8"));
+        HttpEntity<String> entity = new HttpEntity<>(null, httpHeaders);
+        ResponseEntity<String> userOpenIdInfo = restTemplate
+                .exchange(url + userOpenIdReqDTO.getCode(), HttpMethod.GET, entity, String.class);
+        log.info("{}", userOpenIdInfo);
+        UserOpenIdInfo info = JSON.parseObject(userOpenIdInfo.getBody(), UserOpenIdInfo.class);
+        return info;
     }
 
 }
