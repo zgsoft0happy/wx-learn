@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ideacs.business.wx.learn.dao.WxUserBaseMapper">
+    <sql id="BaseColumnList">
+        info_no as infoNo,
+        wx_account as wxAccount,
+        nick_name as nickName,
+        gender,
+        language,
+        country,
+        province,
+        city
+    </sql>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="cn.ideacs.business.wx.learn.entity.dtos.WxUserBaseDTO">
+      insert into wx_user_base
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+          info_no, wx_account,
+          <if test="nickName != null">nick_name,</if>
+          <if test="gender != null">gender,</if>
+          <if test="language != null">language,</if>
+          <if test="country != null">country,</if>
+          <if test="province != null">province,</if>
+          <if test="city != null">city,</if>
+      </trim>
+      <trim prefix=" values(" suffix=")" suffixOverrides=",">
+          #{infoNo},#{wxAccount},
+          <if test="nickName != null">#{nickName},</if>
+          <if test="gender != null">#{gender},</if>
+          <if test="language != null">#{language},</if>
+          <if test="country != null">#{country},</if>
+          <if test="province != null">#{province},</if>
+          <if test="city != null">#{city},</if>
+      </trim>
+    </insert>
+
+    <select id="getById" resultType="cn.ideacs.business.wx.learn.entity.dtos.WxUserBaseDTO">
+        SELECT
+          <include refid="BaseColumnList"/>
+        FROM wx_user_base
+        WHERE id = #{id}
+    </select>
+
+    <select id="getByWxAccount" resultType="cn.ideacs.business.wx.learn.entity.dtos.WxUserBaseDTO">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM wx_user_base
+        WHERE wx_account = #{wxAccount}
+    </select>
+
+    <update id="updateByWxAccount" parameterType="cn.ideacs.business.wx.learn.entity.dtos.WxUserBaseDTO">
+        UPDATE wx_user_base
+        <set>
+            <if test="gender != null">
+                gender=#{gender},
+            </if>
+            <if test="language != null">
+                language=#{language},
+            </if>
+            <if test="country != null">
+                country=#{country},
+            </if>
+            <if test="province != null">
+                province=#{province},
+            </if>
+            <if test="city != null">
+                city=#{city}
+            </if>
+        </set>
+        where wx_account = #{wxAccount}
+    </update>
+
+
+
+</mapper>

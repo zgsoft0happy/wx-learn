@@ -1,17 +1,22 @@
 package cn.ideacs.business.wx.learn.controller;
 
 import cn.ideacs.business.wx.learn.converts.UserBaseConvert;
+import cn.ideacs.business.wx.learn.dao.WxUserBaseMapper;
 import cn.ideacs.business.wx.learn.entity.bos.UserBaseBO;
 import cn.ideacs.business.wx.learn.entity.dtos.UserBaseDTO;
 import cn.ideacs.business.wx.learn.entity.dtos.UserOpenIdInfo;
 import cn.ideacs.business.wx.learn.entity.dtos.UserOpenIdReqDTO;
+import cn.ideacs.business.wx.learn.entity.dtos.WxUserBaseDTO;
 import cn.ideacs.business.wx.learn.service.UserBaseService;
+import cn.ideacs.business.wx.learn.service.WxUserBaseService;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/user/base")
@@ -24,8 +29,10 @@ public class UserBaseController {
                     + "&js_code=";
 
 
-    @Autowired
+    @Resource
     private UserBaseService userBaseService;
+    @Resource
+    private WxUserBaseService wxUserBaseService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Long insert(@RequestBody UserBaseDTO userBaseDTO) {
@@ -51,6 +58,16 @@ public class UserBaseController {
         log.info("{}", userOpenIdInfo);
         UserOpenIdInfo info = JSON.parseObject(userOpenIdInfo.getBody(), UserOpenIdInfo.class);
         return info;
+    }
+
+    @RequestMapping(value = "/add/wx/user", method = RequestMethod.POST)
+    public Boolean addWxAccount(@RequestBody WxUserBaseDTO wxUserBaseDTO) {
+        log.info("addWxAccount ： {}", wxUserBaseDTO);
+        WxUserBaseDTO old = wxUserBaseService.getByAccount(wxUserBaseDTO.getWxAccount());
+        if (old == null) {
+            wxUserBaseService.insert(wxUserBaseDTO);
+        }
+        return true;
     }
 
 }
