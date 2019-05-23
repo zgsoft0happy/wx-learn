@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ideacs.business.wx.learn.dao.LocationTraceMapper">
+    <sql id="base_column_list">
+        id,
+        wx_account as wxAccount,
+        latitude,
+        longitude,
+        address,
+        type,
+        create_time as createTime
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="cn.ideacs.business.wx.learn.entity.dos.LocationTrace">
+        INSERT INTO location_trace
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="wxAccount != null">wx_account,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="longitude != null">longitude,</if>
+            <if test="address != null">address,</if>
+            <if test="type != null">type,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="wxAccount != null">#{wxAccount},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="longitude != null">#{longitude},</if>
+            <if test="address != null">#{address},</if>
+            <if test="type != null">#{type},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <select id="getById" resultType="cn.ideacs.business.wx.learn.entity.dos.LocationTrace">
+        SELECT
+        <include refid="base_column_list"/>
+        FROM location_trace
+        WHERE id = #{id}
+    </select>
+
+    <select id="getByWxAccount" resultType="cn.ideacs.business.wx.learn.entity.dos.LocationTrace">
+        SELECT
+        <include refid="base_column_list"/>
+        FROM location_trace
+        WHERE wx_account = #{wxAccount}
+    </select>
+</mapper>

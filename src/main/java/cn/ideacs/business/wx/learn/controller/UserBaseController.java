@@ -1,7 +1,6 @@
 package cn.ideacs.business.wx.learn.controller;
 
 import cn.ideacs.business.wx.learn.converts.UserBaseConvert;
-import cn.ideacs.business.wx.learn.dao.WxUserBaseMapper;
 import cn.ideacs.business.wx.learn.entity.bos.UserBaseBO;
 import cn.ideacs.business.wx.learn.entity.dtos.UserBaseDTO;
 import cn.ideacs.business.wx.learn.entity.dtos.UserOpenIdInfo;
@@ -11,7 +10,6 @@ import cn.ideacs.business.wx.learn.service.UserBaseService;
 import cn.ideacs.business.wx.learn.service.WxUserBaseService;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
