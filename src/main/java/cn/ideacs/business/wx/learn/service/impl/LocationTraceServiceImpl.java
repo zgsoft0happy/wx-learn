@@ -3,6 +3,8 @@ package cn.ideacs.business.wx.learn.service.impl;
 import cn.ideacs.business.wx.learn.dao.LocationTraceMapper;
 import cn.ideacs.business.wx.learn.entity.dos.LocationTrace;
 import cn.ideacs.business.wx.learn.entity.dtos.LocationTraceDTO;
+import cn.ideacs.business.wx.learn.entity.dtos.LocationTraceListDTO;
+import cn.ideacs.business.wx.learn.entity.dtos.LocationTraceReqDTO;
 import cn.ideacs.business.wx.learn.service.LocationTraceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,19 +41,27 @@ public class LocationTraceServiceImpl implements LocationTraceService {
     }
 
     @Override
-    public List<LocationTraceDTO> getByWxAccount(String wxAccount) {
-
-        return locationTraceMapper.getByWxAccount(wxAccount)
+    public LocationTraceListDTO getList(LocationTraceReqDTO locationTraceReqDTO) {
+        List<LocationTraceDTO> list = locationTraceMapper.getByWxAccount(locationTraceReqDTO)
                 .stream()
-                .map(t -> {
-                    return new LocationTraceDTO()
-                            .setAddress(t.getAddress())
-                            .setCreateTime(LocalDateTime.ofInstant(Instant.ofEpochMilli(t.getCreateTime()), ZoneId.systemDefault()))
-                            .setLatitude(t.getLatitude())
-                            .setLongitude(t.getLongitude())
-                            .setAddress(t.getAddress())
-                            .setType(t.getType())
-                            .setWxAccount(wxAccount);
-                }).collect(Collectors.toList());
+                .map(this::convertDOToDTO)
+                .collect(Collectors.toList());
+        Long count = locationTraceMapper.countByWxAccount(locationTraceReqDTO.getWxAccount());
+        return new LocationTraceListDTO()
+                .setList(list)
+                .setCount(count)
+                .setCurrentPage(locationTraceReqDTO.getPage())
+                .setSize(list.size());
+    }
+
+    private LocationTraceDTO convertDOToDTO(LocationTrace locationTrace) {
+        return new LocationTraceDTO()
+                .setAddress(locationTrace.getAddress())
+                .setCreateTime(LocalDateTime.ofInstant(Instant.ofEpochMilli(locationTrace.getCreateTime() * 1000), ZoneId.systemDefault()))
+                .setLatitude(locationTrace.getLatitude())
+                .setLongitude(locationTrace.getLongitude())
+                .setAddress(locationTrace.getAddress())
+                .setType(locationTrace.getType())
+                .setWxAccount(locationTrace.getWxAccount());
     }
 }

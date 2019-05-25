@@ -44,5 +44,13 @@
         <include refid="base_column_list"/>
         FROM location_trace
         WHERE wx_account = #{wxAccount}
+        order by id desc
+        limit #{page} * #{pageSize}, #{pageSize}
+    </select>
+
+    <select id="countByWxAccount" resultType="long">
+        select count(1)
+        from location_trace
+        where wx_account = #{wxAccount}
     </select>
 </mapper>

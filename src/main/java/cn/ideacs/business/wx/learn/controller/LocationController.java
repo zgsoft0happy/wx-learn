@@ -1,6 +1,8 @@
 package cn.ideacs.business.wx.learn.controller;
 
 import cn.ideacs.business.wx.learn.entity.dtos.LocationTraceDTO;
+import cn.ideacs.business.wx.learn.entity.dtos.LocationTraceListDTO;
+import cn.ideacs.business.wx.learn.entity.dtos.LocationTraceReqDTO;
 import cn.ideacs.business.wx.learn.service.LocationTraceService;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +34,11 @@ public class LocationController {
         locationTraceDTO.setCreateTime(LocalDateTime.now());
         locationTraceService.insert(locationTraceDTO);
         return address;
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public LocationTraceListDTO getList(@RequestBody LocationTraceReqDTO locationTraceReqDTO) {
+        return locationTraceService.getList(locationTraceReqDTO);
     }
 
 

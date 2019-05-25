@@ -1,13 +1,13 @@
 package cn.ideacs.business.wx.learn.service;
 
 import cn.ideacs.business.wx.learn.entity.dtos.LocationTraceDTO;
-
-import java.util.List;
+import cn.ideacs.business.wx.learn.entity.dtos.LocationTraceListDTO;
+import cn.ideacs.business.wx.learn.entity.dtos.LocationTraceReqDTO;
 
 public interface LocationTraceService {
 
     Boolean insert(LocationTraceDTO locationTraceDTO);
 
-    List<LocationTraceDTO> getByWxAccount(String wxAccount);
+    LocationTraceListDTO getList(LocationTraceReqDTO locationTraceReqDTO);
 
 }
