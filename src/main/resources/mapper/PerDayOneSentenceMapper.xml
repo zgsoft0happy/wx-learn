@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ideacs.business.wx.learn.dao.PerDayOneSentenceMapper">
+    <sql id="base_column_list">
+        id, `day`, sentence, author, source, remark
+    </sql>
+
+    <insert id="insert" parameterType="cn.ideacs.business.wx.learn.entity.dos.PerDayOneSentence">
+        insert into per_day_one_sentence
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            `day`,
+            <if test="sentence != null">
+                sentence,
+            </if>
+            <if test="author != null">
+                author,
+            </if>
+            <if test="source != null">
+                source,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            #{day},
+            <if test="sentence != null">
+                #{sentence},
+            </if>
+            <if test="author != null">
+                #{author},
+            </if>
+            <if test="source != null">
+                #{source},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getByDay" resultType="cn.ideacs.business.wx.learn.entity.dos.PerDayOneSentence">
+        SELECT
+        <include refid="base_column_list"/>
+        FROM per_day_one_sentence
+        WHERE `day` = #{day}
+    </select>
+
+    <select id="getById" resultType="cn.ideacs.business.wx.learn.entity.dos.PerDayOneSentence">
+        SELECT
+        <include refid="base_column_list"/>
+        FROM
+        per_day_one_sentence
+        where id = #{id}
+    </select>
+</mapper>
