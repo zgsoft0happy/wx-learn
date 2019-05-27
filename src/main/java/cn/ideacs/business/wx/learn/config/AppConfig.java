@@ -30,8 +30,8 @@ public class AppConfig {
 
     @Value("${http.port}")
     Integer httpPort;
-    @Value("${server.port}")
-    Integer httpsPort;
+//    @Value("${server.port}")
+//    Integer httpsPort;
 
     @Bean
     public TomcatServletWebServerFactory servletContainer () {
@@ -58,7 +58,7 @@ public class AppConfig {
         connector.setScheme("http");
         connector.setPort(httpPort);
         connector.setSecure(false);
-        connector.setRedirectPort(httpsPort);
+//        connector.setRedirectPort(httpsPort);
         return connector;
     }
 
