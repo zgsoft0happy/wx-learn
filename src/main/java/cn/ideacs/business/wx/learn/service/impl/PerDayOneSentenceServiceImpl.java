@@ -27,6 +27,12 @@ public class PerDayOneSentenceServiceImpl implements PerDayOneSentenceService {
         return perDayOneSentence.getId();
     }
 
+    /**
+     * 获得当日的每日一句
+     * 当数据库中不存在当日一句的时候，就可以获得最近的一条。
+     * @param date
+     * @return
+     */
     @Override
     public PerDayOneSentenceDTO getByDay(LocalDate date) {
         PerDayOneSentence perDayOneSentence = perDayOneSentenceMapper.getByDay(date.toString());
