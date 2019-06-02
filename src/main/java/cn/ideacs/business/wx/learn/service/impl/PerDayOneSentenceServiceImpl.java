@@ -31,6 +31,9 @@ public class PerDayOneSentenceServiceImpl implements PerDayOneSentenceService {
     public PerDayOneSentenceDTO getByDay(LocalDate date) {
         PerDayOneSentence perDayOneSentence = perDayOneSentenceMapper.getByDay(date.toString());
         PerDayOneSentenceDTO perDayOneSentenceDTO = new PerDayOneSentenceDTO();
+        if (perDayOneSentence == null) {
+            perDayOneSentence = perDayOneSentenceMapper.getLastOne();
+        }
         BeanUtils.copyProperties(perDayOneSentence, perDayOneSentenceDTO);
         perDayOneSentenceDTO.setDay(LocalDate.parse(perDayOneSentence.getDay()));
         return perDayOneSentenceDTO;

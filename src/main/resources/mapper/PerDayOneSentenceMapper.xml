@@ -54,4 +54,13 @@
         per_day_one_sentence
         where id = #{id}
     </select>
+
+    <select id="getLastOne" resultType="cn.ideacs.business.wx.learn.entity.dos.PerDayOneSentence">
+        SELECT
+        <include refid="base_column_list"/>
+        FROM
+        per_day_one_sentence
+        order by id desc
+        limit 1
+    </select>
 </mapper>

@@ -9,4 +9,6 @@ public interface PerDayOneSentenceMapper {
     PerDayOneSentence getByDay(String day);
 
     PerDayOneSentence getById(Long id);
+
+    PerDayOneSentence getLastOne();
 }
