@@ -31,6 +31,7 @@ public class PerDayWeightController {
             return perDayWeightService.insert(perDayWeightDTO);
         } else {
             perDayWeightDTO.setId(old.getId());
+            perDayWeightDTO.setDay(LocalDate.now());
             return perDayWeightService.update(perDayWeightDTO).longValue();
         }
     }
