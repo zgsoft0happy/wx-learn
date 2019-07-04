@@ -17,11 +17,11 @@ public class PerDayWeightConvert {
             return null;
         }
         return new PerDayWeight()
-                .setCreateTime(perDayWeightDTO.getCreateTime().toEpochSecond(ZoneOffset.of("+8")))
+                .setCreateTime(perDayWeightDTO.getCreateTime() == null ? null : perDayWeightDTO.getCreateTime().toEpochSecond(ZoneOffset.of("+8")))
                 .setDay(perDayWeightDTO.getDay().toString())
                 .setId(perDayWeightDTO.getId())
                 .setRemark(perDayWeightDTO.getRemark())
-                .setUpdateTime(perDayWeightDTO.getUpdateTime().toEpochSecond(ZoneOffset.of("+8")))
+                .setUpdateTime(perDayWeightDTO.getUpdateTime() == null ? System.currentTimeMillis() : perDayWeightDTO.getUpdateTime().toEpochSecond(ZoneOffset.of("+8")))
                 .setUserNo(perDayWeightDTO.getUserId())
                 .setWeight(perDayWeightDTO.getWeight().multiply(new BigDecimal(1000)).intValue());
     }
