@@ -58,6 +58,11 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.58</version>
         </dependency>
+        <dependency>
+            <groupId>com.baidu.fsg</groupId>
+            <artifactId>uid-generator</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
 
 
     </dependencies>

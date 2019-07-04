@@ -58,7 +58,6 @@ public class AppConfig {
         connector.setScheme("http");
         connector.setPort(httpPort);
         connector.setSecure(false);
-//        connector.setRedirectPort(httpsPort);
         return connector;
     }
 

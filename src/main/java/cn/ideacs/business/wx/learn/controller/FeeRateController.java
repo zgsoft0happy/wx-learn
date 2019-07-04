@@ -19,10 +19,10 @@ import java.util.Random;
 @Slf4j
 public class FeeRateController {
 
-    private static final Map<Integer, BigDecimal> rates = new HashMap<>();
+    private static final Map<Integer, BigDecimal> RATES = new HashMap<>();
     private static Random random;
     static {
-        rates.put(1, new BigDecimal("6.67"));
+        RATES.put(1, new BigDecimal("6.67"));
         random = new Random();
     }
 
@@ -33,7 +33,7 @@ public class FeeRateController {
         DetailDTO detailDTO = new DetailDTO()
                 .setCaclTime(LocalDateTime.now())
                 .setRenMinBi(detailQuery.getRenMinBi())
-                .setDollar(new BigDecimal(detailQuery.getRenMinBi()).multiply(rates.get(detailQuery.getBiNo())).toString());
+                .setDollar(new BigDecimal(detailQuery.getRenMinBi()).multiply(RATES.get(detailQuery.getBiNo())).toString());
         Long useTime = System.currentTimeMillis() - start;
         detailDTO.setCaclUseTime(useTime);
         detailDTO.setNext(random.nextInt(1000000));
